@@ -4,6 +4,7 @@ def swap(li, i, j):
     li[i] = li[j]
     li[j] = temp
 
+
 class max_heap():
     heap = []
 
@@ -22,20 +23,25 @@ class max_heap():
 
     def remove_max(self):
         current_idx = 0
-        children = [1,2]
+        children = [1, 2]
         while children[0] < len(self.heap):
             if children[1] == len(self.heap):
                 max_child = children[0]
             else:
-                max_child = children[0] if self.heap[children[0]] > self.heap[children[1]] else children[1]
+                if self.heap[children[0]] > self.heap[children[1]]:
+                    max_child = children[0]
+                else:
+                    max_child = children[1]
             swap(self.heap, max_child, current_idx)
             current_idx = max_child
             children = [current_idx * 2 + 1, current_idx * 2 + 2]
         return self.heap.pop(current_idx)
-    
+
     def __str__(self):
         return ' '.join(map(str, self.heap))
 
 heap = max_heap()
 heap.insert(1).insert(3).insert(5).insert(7).insert(2)
+print heap
+print heap.remove_max()
 print heap
